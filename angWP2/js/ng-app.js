@@ -1,6 +1,7 @@
 (function() {
     var app = angular.module('portfolio', []);
 
+	//custom filter to break down an array into "rows" of X length used like | partition:X
     app.filter('partition', function() {
       var cache = {};
       var filter = function(arr, size) {
@@ -21,11 +22,10 @@
     });
 
     app.controller('SiteInfo', function($scope, $http){
+    	//AJAX call to our wordpress (or other backend) site to retrieve JSON
         var infoResponse = $http.get("http://yourwordpresssite.org/wp-json/");
         siteinfo = this;
         infoResponse.success(function(data, status, headers, config) {
-            //console.log('site info: ');
-            //console.log(data);
             siteinfo.site_title = data.name;
             siteinfo.slogan = data.description;
         });
@@ -52,7 +52,6 @@
         var aboutResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/about");
         about = this;
         aboutResponse.success(function(data, status, headers, config) {
-            //console.log(data);
             about.title = data.title;
             about.content = data.content;
             
@@ -61,8 +60,6 @@
             };
             
             about.image = data.featured_image.guid;
-            
-            //console.log(about.image);
             
             if (about.image.length > 10) {
                 about.hasImage = true;
@@ -86,11 +83,8 @@
                 return $sce.trustAsHtml(htmlString);
             };
             
+            //function to calculate limitTo filter so that we don't have orphaned posts
             $scope.calcedLimitDev = dev.posts.length - (dev.posts.length % 3);
-            //console.log(dev.posts.length - (dev.posts.length % 3));
-            
-            
-            
         });
         devResponse.error(function(data, status, headers, config) {
             alert("AJAX failed!");
@@ -112,8 +106,6 @@
             
             resume.image = data.featured_image.guid;
             
-            //console.log(resume.image);
-            
             if (resume.image.length > 10) {
                 resume.hasImage = true;
             }
@@ -129,7 +121,6 @@
         var photoResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/photography");
         photo = this;
         photoResponse.success(function(data, status, headers, config) {
-            //console.log(data);
             photo.title = data.title;
             photo.content = data.content;
             
@@ -147,8 +138,6 @@
         var photosResponse = $http.get("http://yourwordpresssite.org/wp-json/posts?filter[cat]=5");
         photos = this;
         photosResponse.success(function(data, status, headers, config) {
-            //console.log(data);
-            
             photos.posts = data;       
             
             $scope.renderHtml = function(htmlString){
@@ -162,8 +151,5 @@
         photosResponse.error(function(data, status, headers, config) {
             alert("AJAX failed!");
         });
-    });
-
-    
-    
+    }); 
 })();

@@ -1,17 +1,16 @@
 (function() {
     var app = angular.module('portfolio', []);
 
-
-    app.header_image = function(){
-        //get header image
-    };
-
+	//controller for general siteinfo
     app.controller('SiteInfo', function($scope, $http){
+    	//AJAX call to our wordpress (or other backend) site to retrieve JSON
         var infoResponse = $http.get("http://yourwordpresssite.org/wp-json/");
         siteinfo = this;
         infoResponse.success(function(data, status, headers, config) {
             //console.log('site info: ');
             //console.log(data);
+            
+            //grab the small bits of data we need for this section
             siteinfo.site_title = data.name;
             siteinfo.slogan = data.description;
         });
@@ -20,11 +19,11 @@
         });
     });
 
+	//controller for about section
     app.controller('About', function($scope, $sce, $http){
         var aboutResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/about");
         about = this;
         aboutResponse.success(function(data, status, headers, config) {
-            //console.log(data);
             about.title = data.title;
             about.content = data.content;
             
@@ -33,10 +32,9 @@
             };
             
             about.image = data.featured_image.guid;
-            
-            //console.log(about.image);
-            
+ 
             if (about.image.length > 10) {
+            	//cheap way to determine if we actually have an image
                 about.hasImage = true;
             }
             
@@ -50,20 +48,7 @@
         var devResponse = $http.get("http://yourwordpresssite.org/wp-json/posts?filter[cat]=8");
         dev = this;
         devResponse.success(function(data, status, headers, config) {
-            //console.log(data);
-            /*dev.title = data.title;
-            dev.content = data.content;
-            
-            dev.thumb = data.featured_image.guid;
-            
-            console.log(dev.thumb);
-            
-            if (dev.thumb.length > 10) {
-                dev.hasImage = true;
-            }*/
-            
-            dev.posts = data;
-            
+			dev.posts = data;
             
             $scope.renderHtml = function(htmlString){
                     return $sce.trustAsHtml(htmlString);
@@ -80,7 +65,6 @@
         var aboutResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/resume?v=2");
         resume = this;
         aboutResponse.success(function(data, status, headers, config) {
-            //console.log(data);
             resume.title = data.title;
             resume.content = data.content;
             
@@ -89,8 +73,6 @@
             };
             
             resume.image = data.featured_image.guid;
-            
-            //console.log(resume.image);
             
             if (resume.image.length > 10) {
                 resume.hasImage = true;
@@ -107,7 +89,6 @@
         var photoResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/photography");
         photo = this;
         photoResponse.success(function(data, status, headers, config) {
-            //console.log(data);
             photo.title = data.title;
             photo.content = data.content;
             
