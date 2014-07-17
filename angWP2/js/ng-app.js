@@ -21,7 +21,7 @@
     });
 
     app.controller('SiteInfo', function($scope, $http){
-        var infoResponse = $http.get("http://www.clintharvey.net/wp-json/");
+        var infoResponse = $http.get("http://yourwordpresssite.org/wp-json/");
         siteinfo = this;
         infoResponse.success(function(data, status, headers, config) {
             //console.log('site info: ');
@@ -34,7 +34,7 @@
         });
         
         
-        var aboutResponse = $http.get("http://www.clintharvey.net/wp-json/pages/about");
+        var aboutResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/about");
         aboutResponse.success(function(data, status, headers, config) {
             siteinfo.image = data.featured_image.guid;
             
@@ -49,7 +49,7 @@
     });
 
     app.controller('About', function($scope, $sce, $http){
-        var aboutResponse = $http.get("http://www.clintharvey.net/wp-json/pages/about");
+        var aboutResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/about");
         about = this;
         aboutResponse.success(function(data, status, headers, config) {
             //console.log(data);
@@ -75,7 +75,7 @@
     });
     
     app.controller('Development', function($scope, $sce, $http){
-        var devResponse = $http.get("http://www.clintharvey.net/wp-json/posts?filter[cat]=8");
+        var devResponse = $http.get("http://yourwordpresssite.org/wp-json/posts?filter[cat]=8");
         dev = this;
         devResponse.success(function(data, status, headers, config) {
             
@@ -99,7 +99,7 @@
 
 
     app.controller('Resume', function($scope, $sce, $http){
-        var aboutResponse = $http.get("http://www.clintharvey.net/wp-json/pages/resume?v=2");
+        var aboutResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/resume?v=2");
         resume = this;
         aboutResponse.success(function(data, status, headers, config) {
             //console.log(data);
@@ -126,7 +126,7 @@
     
     
     app.controller('Photography', function($scope, $sce, $http){
-        var photoResponse = $http.get("http://www.clintharvey.net/wp-json/pages/photography");
+        var photoResponse = $http.get("http://yourwordpresssite.org/wp-json/pages/photography");
         photo = this;
         photoResponse.success(function(data, status, headers, config) {
             //console.log(data);
@@ -144,7 +144,7 @@
     });    
     
     app.controller('Portfolio', function($scope, $sce, $http){
-        var photosResponse = $http.get("http://www.clintharvey.net/wp-json/posts?filter[cat]=5");
+        var photosResponse = $http.get("http://yourwordpresssite.org/wp-json/posts?filter[cat]=5");
         photos = this;
         photosResponse.success(function(data, status, headers, config) {
             //console.log(data);
